@@ -33,8 +33,12 @@ public class PushManager {
 
     private boolean debug = true;
 
+    private boolean isInit = false;
+
     private final List<OnRegisterCallback> registerCallbackList;
     private final List<OnOpenNotification> openNotificationList;
+
+    private Object lastOpenNotificationData;
 
     private PushManager() {
         registerCallbackList = new ArrayList<>();
@@ -72,6 +76,12 @@ public class PushManager {
 
 
     public static void init(Context context) {
+        Object lastOpenNotificationData = getInstance().lastOpenNotificationData;
+        if (!getInstance().isInit && lastOpenNotificationData != null) {
+            Logger.i("初始化推送，触发冷启动推送Data");
+            onOpenNotification(lastOpenNotificationData);
+        }
+        getInstance().isInit = true;
         Bundle bundle = getInstance().getMetaDataBundle(context.getApplicationContext());
         if (bundle == null) {
             Logger.i("初始化推送失败 bundle is null 请检查初始化时机");
@@ -151,6 +161,7 @@ public class PushManager {
 
     public static void onOpenNotification(Object data) {
         Logger.i("PushManager onOpenNotification PushInterface:" + getInstance().pushInterface.getClass().getName() + " data :" + data);
+        getInstance().lastOpenNotificationData = data;
         for (int i = getInstance().registerCallbackList.size() - 1; i >= 0; i--) {
             getInstance().openNotificationList.get(i).onOpenNotification(data);
         }
@@ -172,6 +183,8 @@ public class PushManager {
     public static String getManufacturer() {
         return getInstance().pushInterface.getManufacturer();
     }
+
+    public static Object getLastOpenNotificationData() { return getInstance().lastOpenNotificationData; }
 
     public static String getPhoneManufacturer() {
         String manufacturer = "unknown";

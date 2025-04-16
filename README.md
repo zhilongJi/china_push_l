@@ -1,3 +1,6 @@
+# chine_push_l
+修改了通过冷启动之后flutter中接受不到点击的通知内容的问题，需要在调用initPush前调用setOnClickNotification
+
 # china_push
 
 基于 [极光推送](http://jiguang.cn/)

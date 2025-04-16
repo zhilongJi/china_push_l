@@ -1,7 +1,7 @@
-name: china_push
+name: china_push_l
 description: "Push projects applicable to Chinese mobile devices. Integrated with the mainstream push services of major Chinese manufacturers, it will be initialized based on whether the manufacturer supports it. If push is not supported, Xiaomi push will be used by default."
 version: 1.0.1
-repository: https://github.com/developerHUA/china_push
+repository: https://github.com/zhilongJi/china_push_l
 
 environment:
   sdk: '>=3.3.3 <4.0.0'

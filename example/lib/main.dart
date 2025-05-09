@@ -1,4 +1,4 @@
-import 'package:china_push/china_push.dart';
+import 'package:china_push_l/china_push.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
